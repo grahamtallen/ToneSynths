@@ -11,11 +11,11 @@ var panner = new Tone.AutoPanner({
 //AutoFilter - a filter modulation effect
 var filter = new Tone.AutoFilter({
     "frequency": 2,
-    "depth": 0.6
+    "depth": 9
 }).toMaster().start();
 //Tremolo - an amplitude modulation effect
 var tremolo = new Tone.Tremolo({
-    "frequency": 4,
+    "frequency": 0.4,
     "depth": 0.4
 }).toMaster().start();
 //the input oscillators
@@ -23,14 +23,14 @@ var osc0 = new Tone.Oscillator({
     "volume": -Infinity,
     "type": "square6",
     "frequency": "C2"
-}).connect(panner).start();
+}).connect(panner).connect(filter).connect(tremolo).start();
 
 
 var osc1 = new Tone.Oscillator({
     "volume": -Infinity,
     "type": "square6",
     "frequency": "G2"
-}).connect(panner).start();
+}).connect(panner).connect(filter).connect(tremolo).start();
 
 class App extends Component {
 
@@ -42,7 +42,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App" id="DragContainer" onMouseMove={(e) => handleMouseMove(e, panner)}>
+      <div className="App" id="DragContainer" onMouseMove={(e) => handleMouseMove(e, [panner, tremolo, filter])}>
           <p id="demo"></p>
           <button onClick={() => osc0.volume.rampTo(0, 0.1)}>Start1</button>
           <button onClick={() => osc0.volume.rampTo(-Infinity, 0.0)}>Stop1</button>

@@ -1,13 +1,30 @@
 
-export function handleMouseMove(e, panner) {
+const getXDistanceFromCenter = (percentX) => {
+    let dist = percentX - 0.5;
+    if (dist < 0) dist = dist * -1;
+    return dist
+}
+
+const flip = (num) => ((num - 1) * -1);
+
+export function handleMouseMove(e, effects, filter) {
     var x = e.clientX;
     var y = e.clientY;
     let percentX = x / window.outerWidth;
 
-    var coor = `Coordinates: (${x}, ${y}), percent: ${percentX}, `;
+
+    let xDistanceFromCenter = getXDistanceFromCenter(percentX);
+    const flipped = flip(xDistanceFromCenter);
+
+    var coor = `Coordinates: (${x}, ${y}), percentX from right: ${percentX}, xcloseness to center ${flipped}`;
     document.getElementById("demo").innerHTML = coor;
 
-    panner.wet.rampTo(percentX, 1);
+    effects.forEach(effect => {
+        let val = flipped
+        if (flipped === 0.5) val = 0.1;
+        effect.wet.rampTo(val, 0.3);
+    })
+
 
 }
 
