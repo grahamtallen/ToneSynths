@@ -18,18 +18,26 @@ var tremolo = new Tone.Tremolo({
     "frequency": 0.4,
     "depth": 0.4
 }).toMaster().start();
+
 //the input oscillators
-var osc0 = new Tone.Oscillator({
+var osc1 = new Tone.FatOscillator({
     "volume": -Infinity,
     "type": "square6",
     "frequency": "C2"
 }).connect(panner).connect(filter).connect(tremolo).start();
 
 
-var osc1 = new Tone.Oscillator({
+var osc2 = new Tone.FatOscillator({
     "volume": -Infinity,
     "type": "square6",
     "frequency": "G2"
+}).connect(panner).connect(filter).connect(tremolo).start();
+
+
+var osc3 = new Tone.FatOscillator({
+    "volume": -Infinity,
+    "type": "square6",
+    "frequency": "C3"
 }).connect(panner).connect(filter).connect(tremolo).start();
 
 class App extends Component {
@@ -44,10 +52,12 @@ class App extends Component {
     return (
       <div className="App" id="DragContainer" onMouseMove={(e) => handleMouseMove(e, [panner, tremolo, filter])}>
           <p id="demo"></p>
-          <button onClick={() => osc0.volume.rampTo(0, 0.1)}>Start1</button>
-          <button onClick={() => osc0.volume.rampTo(-Infinity, 0.0)}>Stop1</button>
-          <button onClick={() => osc1.volume.rampTo(0, 0.1)}>Start2</button>
-          <button onClick={() => osc1.volume.rampTo(-Infinity, 0.0)}>Stop2</button>
+          <button onClick={() => osc1.volume.rampTo(0, 0.1)}>Start1</button>
+          <button onClick={() => osc1.volume.rampTo(-Infinity, 0.0)}>Stop1</button>
+          <button onClick={() => osc2.volume.rampTo(0, 0.1)}>Start2</button>
+          <button onClick={() => osc2.volume.rampTo(-Infinity, 0.0)}>Stop2</button>
+          <button onClick={() => osc3.volume.rampTo(0, 0.1)}>Start3</button>
+          <button onClick={() => osc3.volume.rampTo(-Infinity, 0.0)}>Stop3</button>
           <br />
           <button onClick={() => {
               panner.wet.value = 0.1;
