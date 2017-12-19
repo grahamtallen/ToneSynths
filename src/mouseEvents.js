@@ -1,14 +1,13 @@
-import controls from './Controls';
-import {toJS} from 'mobx';
 
-export function handleMouseMove(e) {
+export function handleMouseMove(e, panner) {
     var x = e.clientX;
     var y = e.clientY;
     let percentX = x / window.outerWidth;
-    controls.setFilterDepth(percentX * 0.01);
 
-    var coor = `Coordinates: (${x}, ${y}), percent: ${percentX}, filterDepth: ${toJS(controls.filterDepth)}`;
+    var coor = `Coordinates: (${x}, ${y}), percent: ${percentX}, `;
     document.getElementById("demo").innerHTML = coor;
+
+    panner.wet.rampTo(percentX, 1);
 
 }
 

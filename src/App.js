@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import Tone from 'tone';
+import _ from 'lodash';
+import {handleMouseMove} from './mouseEvents';
 
 var panner = new Tone.AutoPanner({
     "frequency": 4,
@@ -40,17 +42,17 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App" id="DragContainer" >
-
+      <div className="App" id="DragContainer" onMouseMove={(e) => handleMouseMove(e, panner)}>
+          <p id="demo"></p>
           <button onClick={() => osc0.volume.rampTo(0, 0.1)}>Start1</button>
-          <button onClick={() => osc0.volume.rampTo(-Infinity, 0.0)}>Start1</button>
+          <button onClick={() => osc0.volume.rampTo(-Infinity, 0.0)}>Stop1</button>
           <button onClick={() => osc1.volume.rampTo(0, 0.1)}>Start2</button>
-          <button onClick={() => osc1.volume.rampTo(-Infinity, 0.0)}>Start2</button>
+          <button onClick={() => osc1.volume.rampTo(-Infinity, 0.0)}>Stop2</button>
           <br />
           <button onClick={() => {
               panner.wet.value = 0.1;
 //fade to 100% wet over 3 seconds.
-              panner.wet.rampTo(1, 3);
+
               // panner.set('frequency', 4)
           }}>Tone set</button>
       </div>
