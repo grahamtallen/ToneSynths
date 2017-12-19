@@ -1,73 +1,50 @@
 import React, { Component } from 'react';
 import './App.css';
-import Tone from 'tone';
-import controls from './Controls'
-import pannerCreator from './Panner'
-import {toJS} from 'mobx';
-import {handleMouseMove} from './mouseEvents'
-// Arpeggiator
-// var synth = new Tone.Synth().toMaster();
-//
-// var pattern = new Tone.Pattern(function(time, note){
-//     synth.triggerAttackRelease(note, 0.25);
-// }, ["C4", "E4", "G4", "A4", "C5", "D4", "G4"]).start(0);
-
-
-/**
- *  PIANO
- */
-
-
-var piano = new Tone.PolySynth(5, Tone.Synth, {
-    "volume" : -8,
-    "oscillator" : {
-        "partials" : [1, 2, 1],
-    },
-    "portamento" : 0.05
-}).toMaster()
-var cChord = ["C4", "E4", "G4", "B4"];
-var dChord = ["D4", "F4", "A4", "C5"];
-var gChord = ["B3", "D4", "E4", "A4"];
-var pianoPart = new Tone.Part(function(time, chord){
-
-    var filter = new Tone.AutoFilter({
-        frequency: toJS(controls.filterFrequency),
-        depth: toJS(controls.filterDepth)
-    }).toMaster().start();
-
-    // let panner = pannerCreator({
-    //     frequency: toJS(controls.panFrequency),
-    //     depth: toJS(controls.panDepth)
-    // })
-    piano.triggerAttackRelease(chord, "9n", time).connect(filter);
-}, [["0:0:2", cChord], ["0:1", cChord], ["0:1:3", dChord], ["0:2:2", cChord], ["0:3", cChord], ["0:3:2", gChord]])
-    .start("0");
-pianoPart.loop = true;
-pianoPart.loopEnd = "1m";
-pianoPart.humanize = false;
-Tone.Transport.bpm.value = 80;
+import {handleMouseMove} from './mouseEvents';
+import Logos from './Logos';
+import {
+    panner,
+    filter,
+    tremolo,
+    osc1,
+    osc2,
+    osc3
+} from './sounds/'
 
 
 class App extends Component {
 
+  state = {
+      render1: false,
+      render2: false,
+      render3: false,
+  }
+
+  componentDidMount() {
+      setTimeout(() => {
+          this.triggerRenderAndSound('render1', osc1)
+          setTimeout(() => {
+              this.triggerRenderAndSound('render2', osc2)
+              setTimeout(() => {
+                  this.triggerRenderAndSound('render3', osc3)
+              }, 400)
+          }, 300)
+      }, 500)
+  }
+
+  triggerRenderAndSound(render, sound) {
+    this.setState({[render]: true});
+    sound.volume.rampTo(0, 0.1);
+  }
+
+
 
   render() {
     return (
-      <div className="App" onMouseMove={(e) => handleMouseMove(e)}>
-        <header className="App-header">
-            <button onClick={() => Tone.Transport.stop()}  className="App-logo" alt="logo">
-                Stop
-            </button>
-            <button onClick={() => Tone.Transport.start("+0.1")} className="App-title">
-                Start
-            </button>
-        </header>
-        <button onClick={() => {
-            controls.arpLength = controls.arpLength + 0.1;
-        }} className="App-intro">
-          Longer
-        </button>
-          <p id="demo"></p>
+      <div className="App" id="DragContainer" onMouseMove={(e) => handleMouseMove(e, [panner, tremolo, filter])}>
+          <div className="body">
+              <Logos {...this.state} />
+          </div>
       </div>
     );
   }
