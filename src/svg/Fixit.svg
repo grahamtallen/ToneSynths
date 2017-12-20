@@ -8,12 +8,6 @@
             <stop stop-color="#1A8BB3" offset="100%"></stop>
         </linearGradient>
     </defs>
-    <animateTransform   attributeName="transform"
-                        type="scale"
-                        from="1 1" to="2 2"
-                        begin="0s" dur="3s"
-                        fill="freeze"
-                        repeatCount="0"/>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="iPad-Landscape-Copy-15" transform="translate(-344.000000, -131.000000)">
             <g id="Group-2-Copy" transform="translate(344.000000, 132.000000)">

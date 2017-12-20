@@ -27,9 +27,9 @@ class App extends Component {
               this.triggerRenderAndSound('render2', osc2)
               setTimeout(() => {
                   this.triggerRenderAndSound('render3', osc3)
-              }, 400)
-          }, 300)
-      }, 500)
+              }, 800)
+          }, 900)
+      }, 1000)
   }
 
   triggerRenderAndSound(render, sound) {
