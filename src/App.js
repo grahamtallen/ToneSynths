@@ -34,7 +34,7 @@ class App extends Component {
 
   triggerRenderAndSound(render, sound) {
     this.setState({[render]: true});
-    sound.volume.rampTo(0, 0.1);
+    // sound.volume.rampTo(0, 0.1);
   }
 
 
@@ -42,6 +42,7 @@ class App extends Component {
   render() {
     return (
       <div className="App" id="DragContainer" onMouseMove={(e) => handleMouseMove(e, [panner, tremolo, filter])}>
+          <p style={{color: 'black'}} id="demo"></p>
           <div className="body">
               <Logos {...this.state} />
           </div>

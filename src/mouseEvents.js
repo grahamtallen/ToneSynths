@@ -20,7 +20,7 @@ export function handleMouseMove(e, effects, filter) {
     const yflipped = flip(yDistanceFromCenter);
 
     var coor = `Coordinates: (${x}, ${y}), percentY from right: ${percentY}, ycloseness to center ${yflipped}`;
-    console.log(coor);
+    // document.getElementById('demo').innerHTML = (coor);
 
     effects.forEach(effect => {
         let val = xflipped;
