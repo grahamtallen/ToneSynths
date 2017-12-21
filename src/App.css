@@ -1,3 +1,8 @@
+.bg {
+  background: url("./Hexagon_base.png");
+  opacity: 0;
+}
+
 body, .App, .body {
   position: absolute;
   top: 0;
@@ -7,7 +12,7 @@ body, .App, .body {
 }
 
 html {
-  background: rgba(255, 246, 0, 0.03);
+  background: rgba(243, 243, 243, 0.83);
 }
 
 #demo {

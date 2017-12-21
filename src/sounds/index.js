@@ -23,6 +23,14 @@ export const phaser = new Tone.Phaser({
 }).toMaster();
 
 //the input oscillators
+
+export const bassOsc = new Tone.FatOscillator({
+    "volume": -Infinity,
+    "type": "square6",
+    "frequency": "C1",
+    "phase": 40,
+}).connect(filter).start();
+
 export const osc1 = new Tone.OmniOscillator({
     "volume": -Infinity,
     "type": "square6",

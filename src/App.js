@@ -5,7 +5,7 @@ import {handleMouseMove} from './mouseEvents';
 import Logos from './Logos';
 import Tone from 'tone';
 import WelcomeMessage from './components/WelcomeMessage';
-
+import {TweenMax} from 'gsap';
 import {
     panner,
     filter,
@@ -16,11 +16,19 @@ import {
     arp,
     arp2,
     synth2,
-    synth
-} from './sounds/'
+    synth,
+    bassOsc
+} from './sounds/';
+
+export const triggerFadeAnimation = (el) => {
+    console.log("Element; ", el);
+    if (el) TweenMax.fromTo(el, 4, {filter: "blur(20px)", opacity: 0}, {filter: "blur(0px)", opacity: 1});
+}
 
 
 class App extends Component {
+
+  ref;
 
   state = {
       render1: false,
@@ -32,7 +40,13 @@ class App extends Component {
   }
 
   componentDidMount() {
+      setTimeout(() => {
+          triggerFadeAnimation(this.ref);
+          bassOsc.volume.rampTo(2, 0.1);
+      }, 1500)
+  }
 
+  startStartUpSounds() {
       setTimeout(() => {
           this.triggerRenderAndSound('render1', osc1);
           setTimeout(() => {
@@ -50,8 +64,7 @@ class App extends Component {
 
               }, 800)
           }, 900)
-      }, 2200)
-
+      }, 2900)
   }
 
   triggerRenderAndSound(render, sound) {
@@ -72,13 +85,14 @@ class App extends Component {
   render() {
     return (
       <div
-          className="App"
-          style={{backgroundColor: `rgba(255, ${this.state.hueX}, ${this.state.hueY})`}}
+          ref={ref => this.ref = ref}
+          className="App bg"
           id="DragContainer"
           onMouseMove={(e) => handleMouseMove(e, [panner, filter, tremolo], [synth2, synth])}
+          onClick={() => this.startStartUpSounds()}
       >
           {this.state.renderWelcome && <WelcomeMessage />}
-          <p id="demo"></p>
+          {/*<p id="demo"></p>*/}
           <div className="body" >
               <Logos {...this.state} />
           </div>
@@ -86,5 +100,6 @@ class App extends Component {
     );
   }
 }
+
 
 export default App;

@@ -23,7 +23,7 @@ export function handleMouseMove(e, effects, sounds, setState) {
     const yflipped = flip(yDistanceFromCenter);
 
     var coor = `Coordinates: (${x}, ${y}), X - closeness to center: ${xflipped}, Y - closeness to center ${yflipped}`;
-    document.getElementById('demo').innerHTML = coor
+    // document.getElementById('demo').innerHTML = coor
 
     effects.forEach((effect) => {
         let val = xflipped;
