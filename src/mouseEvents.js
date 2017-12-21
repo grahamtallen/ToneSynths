@@ -7,11 +7,11 @@ const getDistanceFromCenter = (percent) => {
 
 const flip = (num) => ((num - 1) * -1);
 
-export function handleMouseMove(e, effects, filter) {
+export function handleMouseMove(e, effects, sounds, setState) {
     var x = e.clientX;
     var y = e.clientY;
+    setState({hueX: x, hueY: y});
     let percentX = x / window.innerWidth;
-    console.log(percentX);
     let percentY = y / window.innerHeight;
 
     let xDistanceFromCenter = getDistanceFromCenter(percentX);
@@ -33,10 +33,12 @@ export function handleMouseMove(e, effects, filter) {
                 effect.depth.rampTo(val * 10, 0.1);
             } else effect.depth.rampTo(val , 0.1);
         }
-
-
         effect.wet.rampTo(yval , 0.1);
+    })
 
+    sounds.forEach(sound => {
+        // sound.set('count', (xflipped * 10))
+        // console.log((xflipped * 10))
     })
 
 

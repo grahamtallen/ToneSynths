@@ -6,11 +6,11 @@ import FixitIcon from './svg/Fixit.svg';
 import {TweenMax} from "gsap";
 import TransitionGroup from 'react-transition-group/TransitionGroup' // ES6
 
-const triggerAnimation = (el) => {
+export const triggerAnimation = (el) => {
     if (el) TweenMax.fromTo(el, 1, {y: 100, filter: "blur(20px)", opacity: 0}, {y: 0, filter: "blur(0px)", opacity: 1});
 }
 
-class Wrapper extends Component {
+export class Wrapper extends Component {
 
     ref;
 

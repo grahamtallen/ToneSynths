@@ -8,7 +8,7 @@ export const panner = new Tone.AutoPanner({
 //AutoFilter - a filter modulation effect
 export const filter = new Tone.AutoFilter({
     "frequency": 2,
-    "depth": 9
+    "depth": 1
 }).toMaster().start();
 //Tremolo - an amplitude modulation effect
 export const tremolo = new Tone.Tremolo({
@@ -23,7 +23,7 @@ export const phaser = new Tone.Phaser({
 }).toMaster();
 
 //the input oscillators
-export const osc1 = new Tone.FatOscillator({
+export const osc1 = new Tone.OmniOscillator({
     "volume": -Infinity,
     "type": "square6",
     "frequency": "C2"
@@ -43,8 +43,8 @@ export const osc3 = new Tone.FatOscillator({
     "frequency": "D3"
 }).connect(panner).connect(tremolo).connect(filter).start();
 
-var synth = new Tone.PolySynth({volume: -35}).connect(panner).toMaster();
+var synth = new Tone.PolySynth({volume: -25}).connect(panner).toMaster();
 
 export const arp = new Tone.Pattern(function(time, note){
     synth.triggerAttackRelease(note, 0.25).connect(panner).connect(filter).connect(tremolo);
-}, ["C6", "G6", "C7", "G7", "D6"], 'alternateUp');
+}, ["C6", "G6", "C7", "G7", "B6"], 'alternateUp');

@@ -4,6 +4,8 @@ import './App.css';
 import {handleMouseMove} from './mouseEvents';
 import Logos from './Logos';
 import Tone from 'tone';
+import WelcomeMessage from './components/WelcomeMessage';
+
 import {
     panner,
     filter,
@@ -22,22 +24,25 @@ class App extends Component {
       render1: false,
       render2: false,
       render3: false,
+      renderWelcome: false,
+      hueX: 255,
+      hueY: 255
   }
 
   componentDidMount() {
 
       setTimeout(() => {
-          this.triggerRenderAndSound('render1', osc1)
+          this.triggerRenderAndSound('render1', osc1);
           setTimeout(() => {
-              this.triggerRenderAndSound('render2', osc2)
+              this.triggerRenderAndSound('render2', osc2);
               setTimeout(() => {
-                  this.triggerRenderAndSound('render3', osc3)
+                  this.triggerRenderAndSound('render3', osc3);
                   arp.start(4);
-                  console.log(arp.volume);
                   Tone.Transport.bpm.value = 350;
                   Tone.Transport.start();
-                  // Tone.Transport.stop();
-                  console.log("tone", Tone.Transport)
+                  setTimeout(() => {
+                      this.triggerWelcomeAndSound();
+                  }, 1200)
 
               }, 800)
           }, 900)
@@ -53,13 +58,24 @@ class App extends Component {
       }, 2000)
   }
 
+  triggerWelcomeAndSound() {
+      this.setState({renderWelcome: true});
+      JumpSynth.triggerAttackRelease(["C4", "G4", "E5", "D5", "G5"], 6)
+  }
+
 
 
   render() {
     return (
-      <div className="App" id="DragContainer" onMouseMove={(e) => handleMouseMove(e, [panner, phaser, tremolo])}>
+      <div
+          className="App"
+          style={{backgroundColor: `rgba(255, ${this.state.hueX}, ${this.state.hueY})`}}
+          id="DragContainer"
+          onMouseMove={(e) => handleMouseMove(e, [panner, filter, tremolo], [osc1], this.setState)}
+      >
+          {this.state.renderWelcome && <WelcomeMessage />}
           <p id="demo"></p>
-          <div className="body" onClick={() => JumpSynth.triggerAttackRelease(["C4", "G4", "E5"], 4)}>
+          <div className="body" >
               <Logos {...this.state} />
           </div>
       </div>
