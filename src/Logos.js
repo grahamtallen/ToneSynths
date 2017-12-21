@@ -32,7 +32,6 @@ class Logos extends Component {
         let {render1, render2, render3} = this.props;
         return (
             <div  className="images-group">
-
                 {render1 ? <Wrapper src={SourceIcon} /> : <EmptyDiv/>}
                 {render2 ? <Wrapper src={FixitIcon} /> : <EmptyDiv/>}
                 {render3 ? <Wrapper src={GreenlightIcon} /> : <EmptyDiv/>}

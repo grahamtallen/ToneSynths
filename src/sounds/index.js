@@ -1,5 +1,6 @@
 import Tone from 'tone';
 
+
 export const panner = new Tone.AutoPanner({
     "frequency": 4,
     "depth": 1
@@ -15,29 +16,35 @@ export const tremolo = new Tone.Tremolo({
     "depth": 0.4
 }).toMaster().start();
 
+export const phaser = new Tone.Phaser({
+    "frequency" : 15,
+    "octaves" : 5,
+    "baseFrequency" : 1000
+}).toMaster();
+
 //the input oscillators
-export const osc1 = new Tone.Oscillator({
+export const osc1 = new Tone.FatOscillator({
     "volume": -Infinity,
     "type": "square6",
     "frequency": "C2"
-}).connect(panner).connect(filter).connect(tremolo).start();
+}).connect(panner).connect(tremolo).connect(filter).start();
 
 
 export const osc2 = new Tone.FatOscillator({
     "volume": -Infinity,
     "type": "square6",
     "frequency": "G2"
-}).connect(panner).connect(filter).connect(tremolo).start();
+}).connect(panner).connect(tremolo).connect(filter).start();
 
 
 export const osc3 = new Tone.FatOscillator({
     "volume": -Infinity,
     "type": "square6",
-    "frequency": "C3"
-}).connect(panner).connect(filter).connect(tremolo).start();
+    "frequency": "D3"
+}).connect(panner).connect(tremolo).connect(filter).start();
 
-var synth = new Tone.PolySynth().connect(panner).connect(filter).connect(tremolo).toMaster();
+var synth = new Tone.PolySynth({volume: -35}).connect(panner).toMaster();
 
 export const arp = new Tone.Pattern(function(time, note){
-    synth.triggerAttackRelease(note, 0.03);
-}, ["D6", "C6", "D6", "G7", "G5"]);
+    synth.triggerAttackRelease(note, 0.25).connect(panner).connect(filter).connect(tremolo);
+}, ["C6", "G6", "C7", "G7", "D6"], 'alternateUp');

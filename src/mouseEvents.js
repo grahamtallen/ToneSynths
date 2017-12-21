@@ -25,12 +25,15 @@ export function handleMouseMove(e, effects, filter) {
 
     effects.forEach((effect) => {
         let val = xflipped;
-        if (xflipped === 0.5) val = 0.1;
+        if (xflipped < 0.6) val = 0.1;
         let yval = yflipped;
         if (yflipped < 0.7) yval = 0.1;
-        if (effect.depth > 2) {
-            effect.depth.rampTo(val * 10, 0.1);
-        } else effect.depth.rampTo(val , 0.1);
+        if (effect.depth) {
+            if (effect.depth > 2) {
+                effect.depth.rampTo(val * 10, 0.1);
+            } else effect.depth.rampTo(val , 0.1);
+        }
+
 
         effect.wet.rampTo(yval , 0.1);
 
