@@ -211,7 +211,7 @@ var part = new Tone.Part(function(time, note){
         "velocity": 0.937007874015748,
         "duration": "488i"
     }
-]).start(0);
-part.loop = true;
-part.loopEnd = "4m";
-Tone.Transport.bpm.value = 132;
+]);
+
+
+export default part;

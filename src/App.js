@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import JumpSynth from './sounds/jump';
+import jumpTrack from './sounds/JumpTrack'
+
 import './App.css';
 import {handleMouseMove} from './mouseEvents';
 import Logos from './Logos';
@@ -19,6 +21,9 @@ import {
     synth,
     bassOsc
 } from './sounds/';
+
+const playJump = false;
+
 
 const appLocations = {
     'source': 'https://demo.way2b1.com/source',
@@ -64,8 +69,7 @@ class App extends Component {
                   this.triggerRenderAndSound('render3', osc3);
                   arp.start(4);
                   arp2.start(6);
-
-                  Tone.Transport.bpm.value = 350;
+                  Tone.Transport.bpm.value = playJump ? 132 : 350;
                   Tone.Transport.start();
                   setTimeout(() => {
                       this.triggerWelcomeAndSound();
@@ -78,7 +82,7 @@ class App extends Component {
 
   triggerRenderAndSound(render, sound) {
     this.setState({[render]: true});
-    sound.volume.rampTo(-13, 0.1);
+    sound.volume.rampTo(-6, 0.1);
       setTimeout(() => {
           sound.volume.rampTo(-Infinity, 20);
       }, 2000)
@@ -86,7 +90,13 @@ class App extends Component {
 
   triggerWelcomeAndSound() {
       this.setState({renderWelcome: true});
-      JumpSynth.triggerAttackRelease(["C4", "G4", "E5", "D5", "G5"], 6)
+      if (!playJump) {
+          JumpSynth.triggerAttackRelease(["C4", "G4", "E5", "D5", "G5"], 6)
+      } else {
+          jumpTrack.start(0)
+          jumpTrack.loop = true;
+          jumpTrack.loopEnd = "4m";
+      }
   }
 
 
@@ -97,14 +107,14 @@ class App extends Component {
           ref={ref => this.ref = ref}
           className="App bg"
           id="DragContainer"
-          onMouseMove={(e) => handleMouseMove(e, [panner, filter, tremolo], [synth2, synth, bassOsc])}
+          onMouseMove={(e) => handleMouseMove(e, [panner, filter, tremolo], [synth2, synth], bassOsc)}
           onClick={() => {
               if (!this.alreadyRan) this.startStartUpSounds();
               this.alreadyRan = true;
           }}
       >
           {this.state.renderWelcome && <WelcomeMessage onClick={() => this.startStartUpSounds()} />}
-          {/*<p id="demo"></p>*/}
+          <p id="demo"></p>
           <div className="body" >
               <Logos onAppClick={name => {
                   reverseFadeAnimation(this.ref)

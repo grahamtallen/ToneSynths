@@ -8,7 +8,7 @@ const getDistanceFromCenter = (percent) => {
 
 const flip = (num) => ((num - 1) * -1);
 
-export function handleMouseMove(e, effects, sounds, setState) {
+export function handleMouseMove(e, effects, sounds, bass) {
     var x = e.clientX;
     var y = e.clientY;
     stylesObj.setHueX(x);
@@ -23,7 +23,9 @@ export function handleMouseMove(e, effects, sounds, setState) {
     const yflipped = flip(yDistanceFromCenter);
 
     var coor = `Coordinates: (${x}, ${y}), X - closeness to center: ${xflipped}, Y - closeness to center ${yflipped}`;
-    // document.getElementById('demo').innerHTML = coor
+
+    let demo = document.getElementById('demo');
+    if (demo) demo.innerHTML = coor;
 
     effects.forEach((effect) => {
         let val = xflipped;
@@ -41,9 +43,9 @@ export function handleMouseMove(e, effects, sounds, setState) {
     sounds.forEach(sound => {
         sound.set('modulationIndex', (xflipped * 10))
         sound.set('polyphony', (xflipped * 11))
-    })
-    sounds[2].set('detune', Math.floor(xflipped * 350))
-    console.log(Math.floor(xflipped * 350))
+    });
+
+    bass.set('detune', Math.floor(xflipped * 390))
 
 
 
