@@ -1,3 +1,4 @@
+import stylesObj from './StyleControls';
 
 const getDistanceFromCenter = (percent) => {
     let dist = 0.5 - percent;
@@ -10,7 +11,8 @@ const flip = (num) => ((num - 1) * -1);
 export function handleMouseMove(e, effects, sounds, setState) {
     var x = e.clientX;
     var y = e.clientY;
-    setState({hueX: x, hueY: y});
+    stylesObj.setHueX(x);
+    stylesObj.setHueY(y);
     let percentX = x / window.innerWidth;
     let percentY = y / window.innerHeight;
 
@@ -25,9 +27,9 @@ export function handleMouseMove(e, effects, sounds, setState) {
 
     effects.forEach((effect) => {
         let val = xflipped;
-        if (xflipped < 0.6) val = 0.1;
+        // if (xflipped < 0.6) val = 0.1;
         let yval = yflipped;
-        if (yflipped < 0.7) yval = 0.1;
+        // if (yflipped < 0.7) yval = 0.1;
         if (effect.depth) {
             if (effect.depth > 2) {
                 effect.depth.rampTo(val * 10, 0.1);
@@ -37,7 +39,8 @@ export function handleMouseMove(e, effects, sounds, setState) {
     })
 
     sounds.forEach(sound => {
-        // sound.set('count', (xflipped * 10))
+        sound.set('modulationIndex', (xflipped * 10))
+        sound.set('polyphony', (xflipped * 11))
         // console.log((xflipped * 10))
     })
 

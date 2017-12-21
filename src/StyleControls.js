@@ -1,16 +1,17 @@
-import {observable} from 'mobx';
+import {observable, extendObservable} from 'mobx';
+
+class StyleControls {
+    constructor() {
+        extendObservable(this, {
+            hueX: 1,
+            hueY: 2
+        })
+    }
 
 
-class Controls {
-    arpLength = observable(0.01);
-    panFrequency = observable(0.01);
-    panDepth = observable(1);
-    filterFrequency = observable(0.01);
-    filterDepth = observable(0.01)
-
-    setFilterFrequency = (num) => this.filterFrequency = num;
-    setFilterDepth = (num) => this.filterDepth = num;
+    setHueX = (num) => this.hueX = num;
+    setHueY = (num) => this.hueY = num;
 
 }
 
-export default new Controls;
+export default new StyleControls();

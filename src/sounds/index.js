@@ -43,8 +43,20 @@ export const osc3 = new Tone.FatOscillator({
     "frequency": "D3"
 }).connect(panner).connect(tremolo).connect(filter).start();
 
-var synth = new Tone.PolySynth({volume: -25}).connect(panner).toMaster();
+export const synth = new Tone.PolySynth({
+    volume: -22,
+    polyphony: 4
+}).connect(panner).toMaster();
+export const synth2 = new Tone.FMSynth({
+    volume: -32,
+    modulationIndex: 12,
+}).connect(panner).toMaster();
 
 export const arp = new Tone.Pattern(function(time, note){
     synth.triggerAttackRelease(note, 0.25).connect(panner).connect(filter).connect(tremolo);
 }, ["C6", "G6", "C7", "G7", "B6"], 'alternateUp');
+
+//     synth.triggerAttackRelease(note, 0.25).connect(panner).connect(filter).connect(tremolo);
+export const arp2 = new Tone.Pattern(function(time, note){
+    synth2.triggerAttackRelease(note, 0.25).connect(panner).connect(filter).connect(tremolo);
+}, ["C4", "C5", "C3","C4", "G3", "C5", "G5", "B4"], 'alternateDown');

@@ -14,7 +14,9 @@ import {
     osc2,
     osc3,
     arp,
-    phaser
+    arp2,
+    synth2,
+    synth
 } from './sounds/'
 
 
@@ -38,6 +40,8 @@ class App extends Component {
               setTimeout(() => {
                   this.triggerRenderAndSound('render3', osc3);
                   arp.start(4);
+                  arp2.start(6);
+
                   Tone.Transport.bpm.value = 350;
                   Tone.Transport.start();
                   setTimeout(() => {
@@ -46,7 +50,7 @@ class App extends Component {
 
               }, 800)
           }, 900)
-      }, 10)
+      }, 2200)
 
   }
 
@@ -71,7 +75,7 @@ class App extends Component {
           className="App"
           style={{backgroundColor: `rgba(255, ${this.state.hueX}, ${this.state.hueY})`}}
           id="DragContainer"
-          onMouseMove={(e) => handleMouseMove(e, [panner, filter, tremolo], [osc1], this.setState)}
+          onMouseMove={(e) => handleMouseMove(e, [panner, filter, tremolo], [synth2, synth])}
       >
           {this.state.renderWelcome && <WelcomeMessage />}
           <p id="demo"></p>
