@@ -97,7 +97,7 @@ class App extends Component {
           ref={ref => this.ref = ref}
           className="App bg"
           id="DragContainer"
-          onMouseMove={(e) => handleMouseMove(e, [panner, filter, tremolo], [synth2, synth])}
+          onMouseMove={(e) => handleMouseMove(e, [panner, filter, tremolo], [synth2, synth, bassOsc])}
           onClick={() => {
               if (!this.alreadyRan) this.startStartUpSounds();
               this.alreadyRan = true;
@@ -110,7 +110,7 @@ class App extends Component {
                   reverseFadeAnimation(this.ref)
                   setTimeout(() => {
                       window.location = appLocations[name];
-                  }, 1200)
+                  }, 1300)
               }} {...this.state} />
           </div>
       </div>

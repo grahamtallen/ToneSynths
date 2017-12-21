@@ -41,8 +41,10 @@ export function handleMouseMove(e, effects, sounds, setState) {
     sounds.forEach(sound => {
         sound.set('modulationIndex', (xflipped * 10))
         sound.set('polyphony', (xflipped * 11))
-        // console.log((xflipped * 10))
     })
+    sounds[2].set('detune', Math.floor(xflipped * 350))
+    console.log(Math.floor(xflipped * 350))
+
 
 
 }
