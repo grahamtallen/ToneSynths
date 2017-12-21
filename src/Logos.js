@@ -6,33 +6,8 @@ import FixitIcon from './svg/Fixit.svg';
 import {TweenMax} from "gsap";
 import TransitionGroup from 'react-transition-group/TransitionGroup' // ES6
 
-function makeFadesUp(Component, options = { duration: 0.3 }) {
-    return class FadesUp extends React.Component {
-        componentWillMount (callback) {
-            console.log('entered');
-            const el = findDOMNode(this);
-            TweenMax.fromTo(el, options.duration, {y: 100, opacity: 0}, {y: 0, opacity: 1, onComplete: callback});
-        }
-
-        componentWillLeave (callback) {
-            const el = findDOMNode(this);
-            TweenMax.fromTo(el, options.duration, {y: 0, opacity: 1}, {y: -100, opacity: 0, onComplete: callback});
-        }
-
-        render () {
-            return <Component ref="child" {...this.props} />;
-        }
-    }
-}
-
-function fadesUp (Component) {
-    return typeof arguments[0] === 'function'
-        ? makeFadesUp(arguments[0])
-        : Component => makeFadesUp(Component, arguments[0]);
-}
-
 const triggerAnimation = (el) => {
-    if (el) TweenMax.fromTo(el, 0.8, {y: 100, opacity: 0}, {y: 0, opacity: 1});
+    if (el) TweenMax.fromTo(el, 1, {y: 100, filter: "blur(20px)", opacity: 0}, {y: 0, filter: "blur(0px)", opacity: 1});
 }
 
 class Wrapper extends Component {

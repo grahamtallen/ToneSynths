@@ -8,6 +8,9 @@ body, .App, .body {
 
 #demo {
   color: black;
+  position: absolute;
+  bottom: 0;
+  height: 100px;
 }
 
 .images-group {

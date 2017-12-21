@@ -35,3 +35,9 @@ export const osc3 = new Tone.FatOscillator({
     "type": "square6",
     "frequency": "C3"
 }).connect(panner).connect(filter).connect(tremolo).start();
+
+var synth = new Tone.PolySynth().connect(panner).connect(filter).connect(tremolo).toMaster();
+
+export const arp = new Tone.Pattern(function(time, note){
+    synth.triggerAttackRelease(note, 0.03);
+}, ["D6", "C6", "D6", "G7", "G5"]);
