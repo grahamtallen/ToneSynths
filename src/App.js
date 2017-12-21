@@ -20,8 +20,18 @@ import {
     bassOsc
 } from './sounds/';
 
+const appLocations = {
+    'source': 'https://demo.way2b1.com/source',
+    'fixit': 'https://demo.way2b1.com/fixit',
+    'greenlight': 'https://demo.way2b1.com/greenlight',
+}
+
 export const triggerFadeAnimation = (el) => {
     if (el) TweenMax.fromTo(el, 4, {filter: "blur(20px)", opacity: 0}, {filter: "blur(0px)", opacity: 1});
+}
+
+export const reverseFadeAnimation = (el) => {
+    if (el) TweenMax.fromTo(el, 1, {filter: "blur(0px)", opacity: 1}, {filter: "blur(20px)", opacity: 0});
 }
 
 
@@ -89,14 +99,19 @@ class App extends Component {
           id="DragContainer"
           onMouseMove={(e) => handleMouseMove(e, [panner, filter, tremolo], [synth2, synth])}
           onClick={() => {
-              if (!this.alreadyRan) this.startStartUpSounds()
+              if (!this.alreadyRan) this.startStartUpSounds();
               this.alreadyRan = true;
           }}
       >
           {this.state.renderWelcome && <WelcomeMessage onClick={() => this.startStartUpSounds()} />}
           {/*<p id="demo"></p>*/}
           <div className="body" >
-              <Logos {...this.state} />
+              <Logos onAppClick={name => {
+                  reverseFadeAnimation(this.ref)
+                  setTimeout(() => {
+                      window.location = appLocations[name];
+                  }, 1200)
+              }} {...this.state} />
           </div>
       </div>
     );
