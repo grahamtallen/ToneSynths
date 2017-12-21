@@ -11,7 +11,7 @@ import {
 } from '../sounds/'
 
 var synth = new Tone.PolySynth(5, Tone.Synth, {
-    "volume": -13,
+    "volume": -22,
     "oscillator" : {
         "type" : "fatsawtooth",
         "count" : 3,

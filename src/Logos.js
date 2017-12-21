@@ -4,10 +4,11 @@ import SourceIcon from './svg/Source.svg';
 import GreenlightIcon from './svg/Greenlight.svg';
 import FixitIcon from './svg/Fixit.svg';
 import {TweenMax} from "gsap";
-import TransitionGroup from 'react-transition-group/TransitionGroup' // ES6
+import MainLogo from './components/MainLogo';
 const startWidth = 568;
 const hoverWidth = 599;
 const growWidth = 900;
+
 
 
 export const triggerFadeAnimation = (el) => {
@@ -60,16 +61,19 @@ class Logos extends Component {
     render() {
         let {render1, render2, render3} = this.props;
         return (
-            <div  className="images-group">
-                <div className="image-wrapper">
-                    {render1 &&  <Wrapper src={SourceIcon} />}
+            <div style={{height: "100%"}} >
+                <div className="images-group">
+                    <div className="image-wrapper">
+                        {render1  &&  <Wrapper src={SourceIcon} />}
+                    </div>
+                    <div className="image-wrapper">
+                        {render2  &&  <Wrapper src={FixitIcon} />}
+                    </div>
+                    <div className="image-wrapper">
+                        {render3 && <Wrapper src={GreenlightIcon} />}
+                    </div>
                 </div>
-                <div className="image-wrapper">
-                    {render2 &&  <Wrapper src={FixitIcon} />}
-                </div>
-                <div className="image-wrapper">
-                    {render3 && <Wrapper src={GreenlightIcon} />}
-                </div>
+                <MainLogo/>
             </div>
         )
     }

@@ -21,7 +21,6 @@ import {
 } from './sounds/';
 
 export const triggerFadeAnimation = (el) => {
-    console.log("Element; ", el);
     if (el) TweenMax.fromTo(el, 4, {filter: "blur(20px)", opacity: 0}, {filter: "blur(0px)", opacity: 1});
 }
 
@@ -89,9 +88,12 @@ class App extends Component {
           className="App bg"
           id="DragContainer"
           onMouseMove={(e) => handleMouseMove(e, [panner, filter, tremolo], [synth2, synth])}
-          onClick={() => this.startStartUpSounds()}
+          onClick={() => {
+              if (!this.alreadyRan) this.startStartUpSounds()
+              this.alreadyRan = true;
+          }}
       >
-          {this.state.renderWelcome && <WelcomeMessage />}
+          {this.state.renderWelcome && <WelcomeMessage onClick={() => this.startStartUpSounds()} />}
           {/*<p id="demo"></p>*/}
           <div className="body" >
               <Logos {...this.state} />

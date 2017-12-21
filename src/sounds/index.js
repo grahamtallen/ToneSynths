@@ -68,3 +68,18 @@ export const arp = new Tone.Pattern(function(time, note){
 export const arp2 = new Tone.Pattern(function(time, note){
     synth2.triggerAttackRelease(note, 0.25).connect(panner).connect(filter).connect(tremolo);
 }, ["C4", "C5", "C3","C4", "G3", "C5", "G5", "B4"], 'alternateDown');
+
+export const clickSynth = new Tone.PolySynth({
+    volume: -22,
+    polyphony: 4
+}).connect(panner).toMaster();
+
+export const clickSound = () => {
+    clickSynth.triggerAttackRelease(["G4"], "8n");
+    setTimeout(() => {
+        clickSynth.triggerAttackRelease(["E4"], "8n");
+        setTimeout(() => {
+            clickSynth.triggerAttackRelease(["B3"], "8n");
+        }, 200)
+    }, 200)
+}

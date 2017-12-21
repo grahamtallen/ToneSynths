@@ -15,13 +15,9 @@ class WelcomeMessage extends Component {
     }
 
     render() {
-        let {hueX} = stylesObj;
-
-        // let bgColor = `rgba(255, ${stylesObj.hueY}, ${stylesObj.hueX})`;
-
-
         return (
             <p
+                onClick={this.props.onClick}
                 ref={ref => this.ref = ref}
                 className="welcome-message">
                 Welcome
